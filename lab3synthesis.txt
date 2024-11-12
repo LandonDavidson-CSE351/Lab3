@@ -1,24 +1,25 @@
 *****************************
 * Lab 3 Synthesis Questions *
 *****************************
-Name(s):  
-NetID(s): 
+Name(s):  Landon Davidson
+NetID(s): landond
 
 
 -----------------------------------------------------------
-1) Explain:  
+1) Explain: The cause of the segfault is that the return address for the part_2() fuinction gets corrupted by the fill_array() function. part_2() only gives the array 0x38 bytes on the stack, enough space for exactly 14 integers. That meant that when I gave fill_array() an argument of 15 it went one int past the local variables section of the stack and overwrote the return address of part_2(). Even though the overwriting happened in fill_array(), it corrupted part_2() since the array was defined as a local variable in part_2(). The instruction that actually caused the segfault was the ret instruction in part_2(), which is when the code first ran into the fact that part_2()'s return address had been corrputed.
 
 
 
 -----------------------------------------------------------
 2) Minimum length to cause a seg fault:
-   Calculation:
+   Calculation: 15
+   15 is the minimum length to cause a segfault since part_2() only allocates 56 bytes in the local variables section of its stack for the array, and since 56/4=14, the stack can fit exacrlt 14 integers before running out of space, so the 15th number has to overwrite the return address.
 -----------------------------------------------------------
 3) Hacker Reflection:
-
+The part of the lab that made me feel most like a "hacker" was level 2 since that was the first team we executed completely arbitrary code using a buffer overflow. With that small 56 byte executable space you could start a shell session and gain access to a computer with just a string.
 
 -----------------------------------------------------------
 4) Vulnerabilities and Security:
-
+After taking advantage of buffer overflow attacks in this lab it makes me feel more confident about computer security because it means there are people out there looking for, and finding, all kinds of potential exploits. 
 
 -----------------------------------------------------------
